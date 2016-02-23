@@ -1,0 +1,1 @@
+Slides and R code from the "Advancing crime analysis with R and Shiny" class at the [International Crime and Intelligence Analysis Conference](http://www.ucl.ac.uk/jdi/events/int-CIA-conf), 25-26 February 2016 Manchester, UK
