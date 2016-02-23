@@ -10,7 +10,7 @@ library(shiny)
 runGitHub("cat-lord/talks", subdir = "ICIAC16/repeat_locations/")
 ```
 
-... but make sure you've installed the shiny, rgdal and leaflet packages first
+... but make sure you've installed the shiny, rgdal and leaflet R packages first
 
 ```
 install.packages(c("shiny", "rgdal", "shiny", ""))
