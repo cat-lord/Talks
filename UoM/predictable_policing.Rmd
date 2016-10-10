@@ -80,15 +80,29 @@ highchart() %>%
 # Evaluation design
 
 ## Maryland SMS
-&nbsp;
 
-Standard                          Description
----------------------             ---------------------
-*Level 1:*                          Correlation between a crime prevention program and a measure of crime or crime risk factors at a single point in time.
-*Level 2:*                          Temporal sequence between the program and the crime or risk outcome clearly observed, or the presence of a comparison group without demonstrated comparability to the treatment group.
-*Level 3:*                          A comparison between two or more comparable units of analysis, one with and one without the program.
-*Level 4:*                          Comparison between multiple units with and without the program, controlling for other factors, or using comparison units that evidence only minor differences.
-*Level 5:*                          Random assignment and analysis of comparable units to program and comparison groups.
+```{r, echo=FALSE}
+library(visNetwork, quietly = TRUE) ; library(dplyr)
+
+nodes <- data.frame(id = c(1:5),
+                    label = c("LEVEL 5 \nRandomised Control Trials, natural experiments",
+                              "LEVEL 4 \nInstrumental Variable techniques or \nRegression Discontinuity Design, \nproper balancing (OLS, matching)",
+                              "LEVEL 3 \nDifference in differences, balancing (OLS, matching), \nbut unobserved differences likely remain",
+                              "LEVEL 2 \n'Before and after' comparisons or \na comparison group without balancing of covariates",
+                              "LEVEL 1 \nCorrelation analysis, no control group"),
+                    level = c(1,2,3,4,5),
+                    group = rep("levels", 5))
+
+edges <- data.frame(from = c(1,2,3,4),
+                    to = c(2,3,4,5))
+
+visNetwork(nodes, edges, main = NULL, height = "500px", width = "100%") %>%
+  visEdges(arrows = "from") %>%
+  visGroups(groupname = "levels",
+            color = list(background = "#abd9e9", border = "#74add1", highlight = "#fdae61"), shape = "box") %>% 
+  visHierarchicalLayout(direction = "UD", levelSeparation = 100, nodeSpacing = 300) %>%
+  visInteraction(dragView = FALSE, zoomView = FALSE)
+```
 
 <small>(Sherman et al., 1997; Farrington, 2002)</small>
 
