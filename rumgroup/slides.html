@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Spatial data in R</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Henry Partridge" />
+    <meta name="date" content="2017-06-05" />
+    <link href="libs/remark-css/example.css" rel="stylesheet" />
+    <link rel="stylesheet" href="my-theme.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Spatial data in R
+## an introduction to the sf package
+### Henry Partridge
+### 2017-06-05
+
+---
+
+
+
+
+#  Using R as a GIS
+- R packages include many functions that can be used for reading, writing, manipulating, analysing and modelling spatial data ([Bivand 2017](https://cran.r-project.org/web/views/Spatial.html))
+- The [sp](https://cran.r-project.org/web/packages/sp/index.html) R package is used to handle vector data and the [raster](https://cran.r-project.org/web/packages/raster/index.html) package for manipulating gridded spatial data
+- Many R packages bundle boundary data like [tigris](https://cran.r-project.org/web/packages/tigris/index.html), [rworldmap](https://cran.r-project.org/web/packages/rworldmap/index.html) and [osmdata](https://cran.r-project.org/web/packages/osmdata/index.html), whilst [tidycensus](https://walkerke.github.io/tidycensus/index.html) and [spData](https://github.com/Nowosad/spData) include datasets for spatial analysis
+- Spatial data are commonly visualised in R using [leaflet](https://cran.r-project.org/web/packages/leaflet/index.html), [tmap](https://cran.r-project.org/web/packages/tmap/index.html), [mapview](https://cran.r-project.org/web/packages/mapview/index.html), [ggplot2](https://cran.r-project.org/web/packages/ggplot2/index.html) and [rasterVis](https://cran.r-project.org/web/packages/rasterVis/index.html) packages
+- R interfaces with proprietary and open source GIS software like ArcGIS ([arcgisbinding](https://r-arcgis.github.io/assets/arcgisbinding.pdf)) and QGIS ([RQGIS](https://cran.r-project.org/web/packages/RQGIS/index.html))
+
+---
+class: inverse, center, middle
+
+# [sf](https://cran.r-project.org/web/packages/sf/index.html)
+
+---
+# The sf package
+- intended to (eventually) replace the [sp](https://cran.r-project.org/web/packages/sp/index.html) package
+- provides support for [Simple Features](https://en.wikipedia.org/wiki/Simple_Features), a formal standard used in spatial databases (e.g. [PostGIS](http://postgis.net)) and GIS software (e.g. [ESRI's ArcGIS](http://www.esri.com)).
+- can perform geometric operations by interfacing with [GEOS](https://trac.osgeo.org/geos)
+- can read and write to most vector and raster spatial data formats using [GDAL](http://www.gdal.org)
+- sits within the [tidyverse](http://tidyverse.org) framework:
+    - adopts pipe-friendly functions
+    - stores attribute data and feature geometries in manipulable data frames
+
+---
+
+class: inverse, center, middle
+
+# Demo
+
+---
+# Resources
+- Pebesma, E. (2017). sf: Simple Features for R. R package, version 0.4-3. [https://cran.r-project.org/web/packages/sf/index.html](https://cran.r-project.org/web/packages/sf/index.html)
+- Lovelace, R., &amp; Cheshire, J. (2017). ["Introduction to visualising spatial data in R."](https://cran.r-project.org/doc/contrib/intro-spatial-rl.pdf)
+- Machlis, S. (2017, March 3). Mapping in R just got a whole lot easier. [Blog post]. Retrieved from [http://www.computerworld.com/article/3175623/data-analytics/mapping-in-r-just-got-a-whole-lot-easier.html](http://www.computerworld.com/article/3175623/data-analytics/mapping-in-r-just-got-a-whole-lot-easier.html)
+- Pebesma, E. (2017, January 1). sf - plot, graticule, transform, units, cast, is. [Blog post]. Retrieved from [http://r-spatial.org/r/2017/01/12/newssf.html](http://r-spatial.org/r/2017/01/12/newssf.html)
+- Strimas-Mackey, M. (2017, March 9). Tidy spatial data in R: using dplyr, tidyr, and ggplot2 with sf. [Blog post]. Retrieved from [http://strimas.com/r/tidy-sf/](http://strimas.com/r/tidy-sf/)
+- Williamson, G. (2017, May 4). Polygon intersection and summary with sf. [Blog post]. Retrieved from [https://atriplex.info/blog/index.php/2017/05/24/polygon-intersection-and-summary-with-sf/](https://atriplex.info/blog/index.php/2017/05/24/polygon-intersection-and-summary-with-sf/)
+
+---
+class: inverse, center, middle
+
+# Questions?
+    </textarea>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('showSlide', function (slide) {setTimeout(function() {window.dispatchEvent(new Event('resize'));}, 100)});</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+});
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
