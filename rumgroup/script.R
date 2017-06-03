@@ -12,10 +12,10 @@ devtools::install_github("edzer/sfr")
 # then load:
 library(sf)
 
+# Note that MacOSX and LINUX users need to install a number of geospatial libraries (GEOS, GDAL, and proj.4).
+
 # the tidyverse package also needs to be loaded
 library(tidyverse)
-
-# Note that MacOSX and LINUX users need to install a number of geospatial libraries (GEOS, GDAL, and proj.4).
 
 ## Example spatial data
 # A GeoJSON of Greater Manchester’s wards was created from a vector boundary file available 
@@ -101,9 +101,17 @@ crimes <- pts %>%
   count(ward)
 
 ## Plotting
-# small multiples
+# Base plots
 plot(crimes)
 plot(crimes["n"])
+
+library(RColorBrewer) ; library(classInt)
+pal <- brewer.pal(5, "RdPu")
+classes <- classIntervals(crimes$n, n=5, style="pretty")$brks
+plot(crimes["n"], 
+     col = pal[findInterval(crimes$n, classes, all.inside=TRUE)], 
+     main = "Vehicle crime in Greater Manchester\nMarch 2017", axes = F)
+legend("bottomright", legend = paste("<", round(classes[-1])), fill = pal, cex = 0.7) 
 
 # ggplot2 
 devtools::install_github("tidyverse/ggplot2") # NB need development version for geom_sf()
@@ -133,9 +141,10 @@ ggplotly(p, tooltip = "text")
 
 # leaflet
 library(leaflet)
-pal <- colorBin("RdPu", domain = crimes$n, bins = 5)
+pal <- colorBin("RdPu", domain = crimes$n, bins = 5, pretty = TRUE)
 leaflet(crimes) %>% 
-  addTiles(attribution = '&copy; <a href="https://www.ons.gov.uk/methodology/geography/licences">Contains OS data © Crown copyright and database right (2017)</a>') %>% 
+  addTiles(urlTemplate = "http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png",
+    attribution = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="https://www.ons.gov.uk/methodology/geography/licences">Contains OS data © Crown copyright and database right (2017)</a>') %>% 
   addPolygons(fillColor = ~pal(n), fillOpacity = 0.8,
               weight = 2, opacity = 1, color = "grey",
               label = ~as.character(ward)) %>% 
