@@ -47,12 +47,10 @@ The [tidyverse](https://cran.r-project.org/web/packages/tidyverse/index.html) pa
 library(tidyverse)
 ```
 
-### EXAMPLE DATA
+### EXAMPLE DATA     
+A GeoJSON of Greater Manchester's wards was created from a vector boundary file available from [ONS's Open Geography Portal](http://geoportal.statistics.gov.uk/datasets/afcc88affe5f450e9c03970b237a7999_2). The GeoJSON is projected in British National Grid (EPSG:27700) and originally derives from the [Ordnance Survey](https://www.ordnancesurvey.co.uk/business-and-government/products/opendata-products.html).
 
-**Example spatial data (vector and point)**      
-A GeoJSON of Greater Manchester’s wards was created from a vector boundary file available from ONS’s Open Geography Portal. The GeoJSON is projected in British National Grid (EPSG:27700) and originally derives from the Ordnance Survey.      
-
-Point data are supplied by data.police.uk and represent incidents of anti-social behaviour and crimerecorded by the Greater Manchester Police during March 2017.
+Point data are supplied by [data.police.uk](http://data.police.uk) and represent incidents of anti-social behaviour and crime recorded by the Greater Manchester Police during February 2017. The incidents are supplied with latitude and longitude coordinates which have undergone an [anonymisation process](http://data.police.uk/about/#anonymisation).
 
 ### READING AND WRITING SPATIAL DATA
 
