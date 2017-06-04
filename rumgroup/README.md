@@ -1,1 +1,1 @@
-[Slides](https://cdn.rawgit.com/rcatlord/talks/1b139d58/rumgroup/slides.html) and [code](https://github.com/rcatlord/talks/blob/master/rumgroup/script.R) from the [RUM group](http://rumgroup.github.io/Home/) meeting on 5 June 2017.
+[Slides](https://cdn.rawgit.com/rcatlord/talks/1b139d58/rumgroup/slides.html), [R notebook](https://cdn.rawgit.com/rcatlord/talks/f50171c9/rumgroup/notebook.nb.html) and [code](https://github.com/rcatlord/talks/blob/master/rumgroup/script.R) from the [RUM group](http://rumgroup.github.io/Home/) meeting on 5 June 2017.
