@@ -21,11 +21,15 @@ library(sf)
 # the tidyverse package also needs to be loaded
 library(tidyverse)
 
+<<<<<<< HEAD
 ## ------------------------------------------------------------------------
 
 ### EXAMPLE DATA
 
 ## Example spatial data (vector and point)
+=======
+## Example spatial data
+>>>>>>> origin/master
 # A GeoJSON of Greater Manchester’s wards was created from a vector boundary file available 
 # from ONS’s Open Geography Portal. The GeoJSON is projected in British National Grid (EPSG:27700)
 # and originally derives from the Ordnance Survey.
@@ -156,6 +160,7 @@ bdy_pts <- pts %>%
   st_join(bdy_WGS84, ., left = FALSE) %>% 
   count(ward)
 
+<<<<<<< HEAD
 ## ------------------------------------------------------------------------
 
 ## PLOTTING ##
@@ -175,6 +180,24 @@ legend("bottomright", legend = paste("<", round(classes[-1])), fill = pal, cex =
 ## ggplot2 
 # devtools::install_github("tidyverse/ggplot2") # NB need development version for geom_sf()
 ggplot(bdy_pts) +
+=======
+## Plotting
+# Base plots
+plot(crimes)
+plot(crimes["n"])
+
+library(RColorBrewer) ; library(classInt)
+pal <- brewer.pal(5, "RdPu")
+classes <- classIntervals(crimes$n, n=5, style="pretty")$brks
+plot(crimes["n"], 
+     col = pal[findInterval(crimes$n, classes, all.inside=TRUE)], 
+     main = "Vehicle crime in Greater Manchester\nMarch 2017", axes = F)
+legend("bottomright", legend = paste("<", round(classes[-1])), fill = pal, cex = 0.7) 
+
+# ggplot2 
+devtools::install_github("tidyverse/ggplot2") # NB need development version for geom_sf()
+ggplot(crimes) +
+>>>>>>> origin/master
   geom_sf(aes(fill = n)) +
   scale_fill_gradientn('Frequency', colours=RColorBrewer::brewer.pal(5,"RdPu"), 
                        breaks = scales::pretty_breaks(n = 5)) +
@@ -200,8 +223,13 @@ ggplotly(p, tooltip = "text")
 
 ## leaflet
 library(leaflet)
+<<<<<<< HEAD
 pal <- colorBin("RdPu", domain = bdy_pts$n, bins = 5, pretty = TRUE)
 leaflet(bdy_pts) %>% 
+=======
+pal <- colorBin("RdPu", domain = crimes$n, bins = 5, pretty = TRUE)
+leaflet(crimes) %>% 
+>>>>>>> origin/master
   addTiles(urlTemplate = "http://{s}.tiles.wmflabs.org/bw-mapnik/{z}/{x}/{y}.png",
     attribution = '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="https://www.ons.gov.uk/methodology/geography/licences">Contains OS data © Crown copyright and database right (2017)</a>') %>% 
   addPolygons(fillColor = ~pal(n), fillOpacity = 0.8,
