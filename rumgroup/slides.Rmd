@@ -1,7 +1,9 @@
 ---
-title: "Spatial data in R"
-subtitle: "an introduction to the sf package"
-author: "Henry Partridge"
+title: | 
+    | Spatial data in R:
+    | an introduction to the sf package
+subtitle: "Henry Partridge"
+author: "R at the University of Manchester (RUM) Group"
 date: "2017-06-05"
 output:
   xaringan::moon_reader:
@@ -47,6 +49,15 @@ class: inverse, center, middle
 class: inverse, center, middle
 
 # Demo
+
+---
+
+class: left, middle
+
+The R script can be found at: [https://github.com/rcatlord/talks/blob/master/rumgroup/script.R](https://github.com/rcatlord/talks/blob/master/rumgroup/script.R)
+
+and the R notebook at: [https://cdn.rawgit.com/rcatlord/talks/70080537/rumgroup/notebook.nb.html](https://cdn.rawgit.com/rcatlord/talks/70080537/rumgroup/notebook.nb.html)
+
 
 ---
 # Resources
