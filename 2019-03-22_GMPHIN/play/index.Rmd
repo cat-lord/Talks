@@ -1,0 +1,108 @@
+---
+output: html_document
+---
+
+<style>
+.popupContainer
+{
+  overflow: scroll;
+}
+
+.popupLayout
+{
+  width: 100%;
+}
+
+.popupLayout td
+{
+  vertical-align: top;
+  border-bottom: 1px dotted #ccc;
+  padding: 3px;
+}
+
+.popupLayout td:nth-child(1)
+{
+  width: 1%;
+  font-weight: bold;
+  white-space: nowrap;
+}
+</style>
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+```
+
+### Health services in Greater Manchester
+###### Source: [Care Quality Commission](http://www.cqc.org.uk/about-us/transparency/using-cqc-data)
+</br>
+
+```{r}
+library(crosstalk) ; library(tidyverse) ; library(sf) ; library(leaflet) ; library(DT)
+
+bdy <- st_read("https://ons-inspire.esriuk.com/arcgis/rest/services/Administrative_Boundaries/Local_Authority_Districts_DEC_2018_Boundaries/FeatureServer/2/query?where=lad18nm%20IN%20%28%27Bolton%27%2C%27Bury%27%2C%27Manchester%27%2C%27Oldham%27%2C%27Rochdale%27%2C%27Salford%27%2C%27Stockport%27%2C%27Tameside%27%2C%27Trafford%27%2C%27Wigan%27%29&outSR=4326&outFields=%2A&geometryPrecision=6&f=geojson", quiet = TRUE)
+df <- read_csv("gm_health_services.csv",
+               col_types = cols(
+                 type = col_factor(NULL),
+                 area_name = col_factor(levels = c("Bolton","Bury","Manchester","Oldham","Rochdale","Salford","Stockport","Tameside","Trafford","Wigan"))))
+sd <- SharedData$new(df)
+
+bscols(widths = c(3, NA),
+       list(
+         filter_checkbox(id = "type", label = "Service", sharedData = sd, group = ~type),
+         filter_select(id = "area_name", label = "Local authority", sharedData = sd, group = ~area_name)
+         ),
+  leaflet(sd) %>% 
+    addProviderTiles(providers$CartoDB.Positron) %>% 
+    addPolylines(data = bdy, stroke = TRUE, weight = 3, color = "#212121", opacity = 1) %>% 
+    addAwesomeMarkers(icon = awesomeIcons(icon = "fa-map-marker", library = "fa", iconColor = "#ffffff",
+      markerColor = ifelse(test = df$type == "Dentist", yes = "orange", no = "lightblue")),
+      options = markerOptions(riseOnHover = TRUE, opacity = 1),
+      popup = ~paste0(
+        "<div class='popupContainer'>",
+        "<h5>", df$name, "</h3>",
+        "<table class='popupLayout'>",
+        "<tr>",
+        "<td>Address</td>",
+        "<td>", df$address, "</td>",
+        "</tr>",
+        "<td>Postcode</td>",
+        "<td>", df$postcode, "</td>",
+        "</tr>",
+        "</tr>",
+        "<td>Telephone</td>",
+        "<td>", df$telephone, "</td>",
+        "</tr>",
+        "<tr>",
+        "<td>Website</td>",
+        "<td><a href='", df$website, "' target='_blank'>", df$website, "</a></td>",
+        "</tr>",
+        "</table>",
+        "</div>"))
+)
+
+DT::datatable(sd, 
+              extensions = "Scroller", 
+              style = "bootstrap", 
+              class = "compact", 
+              width = "100%", 
+              rownames = FALSE,
+              options = list(deferRender = TRUE, 
+                             scrollX = TRUE, 
+                             scrollY = 220, 
+                             scroller = TRUE, 
+                             initComplete = JS(
+                               "function(settings, json) {",
+                               "$(this.api().table().header()).css({'background-color': '#F8F8F8', 'color': '#000'});", 
+                               "}"),
+                             columnDefs = list(list(visible = FALSE, targets = c(7:9)))),
+              colnames = c(
+                "Name" = "name",
+                "Type" = "type",
+                "Address" = "address",
+                "Postcode" = "postcode",
+                "Telephone" = "telephone",
+                "Website" = "website",
+                "Local authority" = "area_name")
+              )
+```
